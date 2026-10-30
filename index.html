@@ -27,6 +27,14 @@
     --odak: .125rem;
     --bar-kalin: .25rem;
     --bar-ince: .1875rem;
+    --ease: cubic-bezier(.22,1,.36,1);
+    --adim: .12s;          /* décalage entre éléments à l'ouverture */
+    --t-giris: .9s;
+    --t-kisa: .45s;
+    --t-cizgi: .8s;
+    --t-parilti: 1.4s;
+    --t-dalga: 1.6s;
+    --parilti-renk: rgba(251,247,240,.55);
     --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
     --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   }
@@ -54,16 +62,20 @@
   .tarih {
     margin: 0 auto;
     display: inline-block;
+    position: relative;
     padding: .2rem 0;
-    border-top: 1px solid var(--cizgi);
-    border-bottom: 1px solid var(--cizgi);
     font: 400 1.05rem/1.6 var(--display);
     letter-spacing: .04em;
   }
+  .tarih::before, .tarih::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--cizgi); }
+  .tarih::before { top: 0; }
+  .tarih::after { bottom: 0; }
+  h1 > span { display: inline-block; }
   .aciklama { margin: .35rem auto 0; max-width: 22rem; font-size: 1.02rem; color: var(--kahve); }
 
   /* --- Bouton principal --- */
   .sec {
+    position: relative;
     margin-top: 2rem;
     width: 100%;
     min-height: 3.75rem;
@@ -81,6 +93,7 @@
   .sec:hover { background: var(--findik-koyu); }
   .sec:active { transform: scale(.985); }
   .sec:focus-visible, .tekrar:focus-visible { outline: var(--odak) solid var(--kahve); outline-offset: calc(var(--odak) * 1.5); }
+  .sec::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; }
   .sec svg { width: 1.35rem; height: 1.35rem; }
   .ipucu { margin: .85rem 0 0; text-align: center; font-size: .86rem; color: var(--kahve-2); }
   .gizli { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -122,24 +135,55 @@
     border-radius: var(--tam); padding: .4rem .8rem; font: 600 .8rem/1 var(--body); cursor: pointer;
   }
   footer { margin-top: 3rem; text-align: center; font: italic 400 1rem/1.4 var(--display); color: var(--kahve-2); }
+
+  /* --- Yaprak yağmuru (fin des envois) --- */
+  .yapraklar { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 10; }
+  .yaprak {
+    position: absolute; top: -2rem; width: var(--b); height: calc(var(--b) * 1.4);
+    border-radius: 80% 0 80% 0; background: var(--renk); opacity: .85;
+    animation: dusus var(--sure) linear var(--gecikme) forwards;
+  }
+  @keyframes dusus { to { transform: translate(var(--x), 110vh) rotate(var(--r)); opacity: 0; } }
+
+  /* --- Animations --- */
+  @media (prefers-reduced-motion: no-preference) {
+    .gir { animation: gir var(--t-giris) var(--ease) backwards; animation-delay: calc(var(--sira, 0) * var(--adim)); }
+    @keyframes gir { from { opacity: 0; transform: translateY(.9rem); filter: blur(.25rem); } }
+    h1 .ve.gir { animation-name: ve-gir; }
+    @keyframes ve-gir { from { opacity: 0; transform: scale(.4) rotate(-25deg); } }
+    .tarih::before, .tarih::after { animation: cizgi var(--t-cizgi) var(--ease) backwards; animation-delay: calc(4 * var(--adim)); }
+    @keyframes cizgi { from { transform: scaleX(0); } }
+    .sec::after { animation: dalga var(--t-dalga) var(--ease) 2; animation-delay: calc(8 * var(--adim) + var(--t-giris)); }
+    @keyframes dalga { from { opacity: .45; box-shadow: 0 0 0 0 var(--findik); } to { opacity: 0; box-shadow: 0 0 0 .9rem var(--findik); } }
+    li { animation: gir var(--t-kisa) var(--ease) backwards; }
+    li[data-durum="gidiyor"] .bar > i {
+      background-image: linear-gradient(90deg, transparent, var(--parilti-renk), transparent);
+      background-size: 200% 100%; animation: parilti var(--t-parilti) linear infinite;
+    }
+    @keyframes parilti { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+    .tamam path { stroke-dasharray: 24; animation: tik var(--t-kisa) var(--ease) backwards; }
+    @keyframes tik { from { stroke-dashoffset: 24; } }
+    .tesekkur:not([hidden]) { animation: kutla var(--t-giris) var(--ease) backwards; }
+    @keyframes kutla { from { opacity: 0; transform: translateY(.6rem) scale(.96); } }
+  }
   [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <main>
   <header class="davet">
-    <h1>Büşra <span class="ve">&amp;</span> Selim Han</h1>
-    <p class="tarih">1 Kasım 2026</p>
-    <p class="karsilama">Nişanımıza hoş geldiniz</p>
-    <p class="aciklama">Bu akşam çektiğiniz fotoğraf ve videoları buradan bize gönderebilirsiniz. Hepsi orijinal kalitesinde bize ulaşır.</p>
+    <h1><span class="gir" style="--sira:0">Büşra</span> <span class="ve gir" style="--sira:2">&amp;</span> <span class="gir" style="--sira:1">Selim Han</span></h1>
+    <p class="tarih gir" style="--sira:3">1 Kasım 2026</p>
+    <p class="karsilama gir" style="--sira:5">Nişanımıza hoş geldiniz</p>
+    <p class="aciklama gir" style="--sira:6">Bu akşam çektiğiniz fotoğraf ve videoları buradan bize gönderebilirsiniz. Hepsi orijinal kalitesinde bize ulaşır.</p>
   </header>
 
-  <button class="sec" type="button" id="sec">
+  <button class="sec gir" style="--sira:7" type="button" id="sec">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/><circle cx="12" cy="13" r="3.6"/></svg>
     Fotoğraf ve video seç
   </button>
   <input class="gizli" id="dosya" type="file" multiple accept="image/*,image/heic,image/heif,video/*" tabindex="-1" aria-hidden="true">
-  <p class="ipucu">Birden fazla dosya seçebilirsiniz. Gönderim bitene kadar bu sayfayı açık tutun.</p>
+  <p class="ipucu gir" style="--sira:8">Birden fazla dosya seçebilirsiniz. Gönderim bitene kadar bu sayfayı açık tutun.</p>
 
   <div class="uyari" id="ayarsiz" hidden>Gönderim adresi henüz ayarlanmadı.</div>
 
@@ -180,7 +224,7 @@
 
   const ICON_FOTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>';
   const ICON_VIDEO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10.5l5-3v9l-5-3"/></svg>';
-  const ICON_TAMAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Gönderildi"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const ICON_TAMAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tamam" aria-label="Gönderildi"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
   const $ = (id) => document.getElementById(id);
   const input = $('dosya');
@@ -326,8 +370,29 @@
     $('genelBar').style.width = pct + '%';
     const failed = items.some((it) => it.state === 'hata');
     $('sorun').hidden = !failed;
-    $('tesekkur').hidden = !(valid.length && done === valid.length);
+    const allDone = !!(valid.length && done === valid.length);
+    if (allDone && $('tesekkur').hidden) celebrate();
+    $('tesekkur').hidden = !allDone;
     if (!busy() && wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+  }
+
+  function celebrate() {
+    requestAnimationFrame(() => $('tesekkur').scrollIntoView({ behavior: 'smooth', block: 'center' }));
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const box = document.createElement('div');
+    box.className = 'yapraklar';
+    box.setAttribute('aria-hidden', 'true');
+    const colors = ['var(--findik)', 'var(--cizgi)', 'var(--kahve-2)'];
+    for (let i = 0; i < 28; i++) {
+      const p = document.createElement('i');
+      p.className = 'yaprak';
+      p.style.cssText = `left:${Math.random() * 100}%;--b:${(0.45 + Math.random() * 0.5).toFixed(2)}rem;` +
+        `--renk:${colors[i % 3]};--sure:${(2.6 + Math.random() * 1.8).toFixed(2)}s;--gecikme:${(Math.random() * 0.8).toFixed(2)}s;` +
+        `--x:${(Math.random() * 8 - 4).toFixed(1)}rem;--r:${Math.round(Math.random() * 540 - 270)}deg`;
+      box.appendChild(p);
+    }
+    document.body.appendChild(box);
+    setTimeout(() => box.remove(), 6000);
   }
 
   function busy() { return items.some((it) => it.state === 'sirada' || it.state === 'gidiyor'); }
