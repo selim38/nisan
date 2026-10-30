@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Büşra & Selim Han, Nişan</title>
+<meta name="description" content="Nişanımızda çektiğiniz fotoğraf ve videoları bize gönderin.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%237A5537' stroke-width='4'%3E%3Ccircle cx='24' cy='32' r='16'/%3E%3Ccircle cx='40' cy='32' r='16'/%3E%3C/svg%3E"><!-- ds-allow-hardcode: favicon data URI -->
+<meta name="theme-color" content="#F2E9DA"><!-- ds-allow-hardcode: meta tag cannot read CSS tokens -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;1,6..96,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sut: #F2E9DA;      /* fond crème */
+    --krem: #FBF7F0;     /* surfaces claires */
+    --kum: #E7DAC5;      /* pistes, séparateurs pleins */
+    --cizgi: #CDB89A;    /* traits fins */
+    --findik: #7A5537;   /* noisette : action principale */
+    --kahve: #3A2A1F;    /* texte */
+    --kahve-2: #6B5544;  /* texte secondaire */
+    --hata: #8E3B2E;     /* erreurs */
+    --hata-zemin: #F3DED6;
+    --findik-koyu: #6A4A30;
+    --golge-buton: 0 1px 0 rgba(255,255,255,.25) inset, 0 .6rem 1.5rem -.9rem rgba(58,42,31,.7);
+    --tam: 999px;
+    --odak: .125rem;
+    --bar-kalin: .25rem;
+    --bar-ince: .1875rem;
+    --t-ciz: 1.6s;
+    --t-kurdele: 1.2s;
+    --gecikme-kurdele: 1.1s;
+    --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+    --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--sut);
+    color: var(--kahve);
+    font: 400 1rem/1.6 var(--body);
+    min-height: 100vh;
+    padding: max(2.5rem, env(safe-area-inset-top)) 1.25rem max(2.5rem, env(safe-area-inset-bottom));
+  }
+  main { max-width: 26rem; margin: 0 auto; }
+
+  /* --- Davetiye (hero) --- */
+  .davet { text-align: center; }
+  .halkalar { width: 9.5rem; height: auto; display: block; margin: 0 auto 1.25rem; color: var(--findik); }
+  .halkalar * { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .halkalar .kurdele { stroke-width: 1.1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .halkalar .iz { stroke-dasharray: var(--uzunluk); stroke-dashoffset: var(--uzunluk); animation: ciz var(--t-ciz) cubic-bezier(.6,.1,.3,1) forwards; }
+    .halkalar .h2 { animation-delay: .35s; }
+    .halkalar .kurdele { animation-delay: var(--gecikme-kurdele); animation-duration: var(--t-kurdele); }
+    @keyframes ciz { to { stroke-dashoffset: 0; } }
+  }
+  .karsilama { margin: 0; font-size: .95rem; color: var(--kahve-2); }
+  h1 {
+    margin: .4rem 0 .6rem;
+    font: italic 400 3.4rem/1.02 var(--display);
+    letter-spacing: -.01em;
+  }
+  h1 .ve { display: block; font-size: .5em; line-height: 1.5; color: var(--findik); }
+  .tarih {
+    margin: 0 auto;
+    display: inline-block;
+    padding: .2rem 0;
+    border-top: 1px solid var(--cizgi);
+    border-bottom: 1px solid var(--cizgi);
+    font: 400 1.05rem/1.6 var(--display);
+    letter-spacing: .04em;
+  }
+  .aciklama { margin: 1.75rem auto 0; max-width: 22rem; font-size: 1.02rem; color: var(--kahve); }
+
+  /* --- Bouton principal --- */
+  .sec {
+    margin-top: 2rem;
+    width: 100%;
+    min-height: 3.75rem;
+    border: 0;
+    border-radius: var(--tam);
+    background: var(--findik);
+    color: var(--krem);
+    font: 600 1.06rem/1.2 var(--body);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: .65rem;
+    box-shadow: var(--golge-buton);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease, background-color .2s ease;
+  }
+  .sec:hover { background: var(--findik-koyu); }
+  .sec:active { transform: scale(.985); }
+  .sec:focus-visible, .tekrar:focus-visible { outline: var(--odak) solid var(--kahve); outline-offset: calc(var(--odak) * 1.5); }
+  .sec svg { width: 1.35rem; height: 1.35rem; }
+  .ipucu { margin: .85rem 0 0; text-align: center; font-size: .86rem; color: var(--kahve-2); }
+  .gizli { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* --- Mesajlar --- */
+  .tesekkur {
+    margin-top: 2rem; padding: 1.5rem 1.25rem; text-align: center;
+    background: var(--krem); border: 1px solid var(--cizgi); border-radius: 1.25rem;
+  }
+  .tesekkur h2 { margin: 0; font: italic 400 1.9rem/1.2 var(--display); }
+  .tesekkur p { margin: .35rem 0 0; color: var(--kahve-2); }
+  .uyari { margin-top: 1.25rem; padding: .85rem 1rem; border-radius: .9rem; background: var(--hata-zemin); color: var(--hata); font-size: .92rem; }
+
+  /* --- Liste --- */
+  .gonderim { margin-top: 2.25rem; }
+  .ozet { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: .92rem; color: var(--kahve-2); }
+  .ozet strong { color: var(--kahve); font-weight: 600; }
+  .bar { height: var(--bar-kalin); border-radius: var(--bar-kalin); background: var(--kum); overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--findik); transition: width .3s ease; }
+  .ozet + .bar { margin-top: .5rem; }
+  ul { list-style: none; margin: 1rem 0 0; padding: 0; }
+  li {
+    display: grid; grid-template-columns: 2.25rem 1fr auto; gap: .2rem .75rem; align-items: center;
+    padding: .8rem 0; border-top: 1px solid var(--kum);
+  }
+  li:last-child { border-bottom: 1px solid var(--kum); }
+  .ikon { grid-row: span 2; width: 2.25rem; height: 2.25rem; border-radius: .6rem; background: var(--krem); border: 1px solid var(--kum); display: grid; place-items: center; color: var(--findik); }
+  .ikon svg { width: 1.1rem; height: 1.1rem; }
+  .ad { font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .durum { grid-column: 2; font-size: .8rem; color: var(--kahve-2); }
+  li .bar { grid-column: 2; height: var(--bar-ince); }
+  li[data-durum="bitti"] .bar, li[data-durum="hata"] .bar, li[data-durum="red"] .bar { display: none; }
+  li[data-durum="bitti"] .durum { color: var(--findik); }
+  li[data-durum="hata"] .durum, li[data-durum="red"] .durum { color: var(--hata); }
+  .sag { grid-row: 1 / span 2; grid-column: 3; font-size: .8rem; color: var(--kahve-2); text-align: right; }
+  .sag svg { width: 1.2rem; height: 1.2rem; color: var(--findik); }
+  .tekrar {
+    border: 1px solid var(--findik); background: transparent; color: var(--findik);
+    border-radius: var(--tam); padding: .4rem .8rem; font: 600 .8rem/1 var(--body); cursor: pointer;
+  }
+  footer { margin-top: 3rem; text-align: center; font: italic 400 1rem/1.4 var(--display); color: var(--kahve-2); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header class="davet">
+    <svg class="halkalar" viewBox="0 0 160 112" aria-hidden="true">
+      <circle class="iz" style="--uzunluk:170" cx="62" cy="46" r="27"/>
+      <circle class="iz h2" style="--uzunluk:170" cx="98" cy="46" r="27"/>
+      <path class="iz kurdele" style="--uzunluk:150" d="M80 66.5c-7-7.5-17-6-16 .5s11 4 16-.5c5 4.5 15 6 16-.5s-9-8-16-.5c-2 9-9 20-21 27M80 66.5c3 10 9 19 19 25"/>
+    </svg>
+    <p class="karsilama">Nişanımıza hoş geldiniz</p>
+    <h1>Büşra <span class="ve">&amp;</span> Selim Han</h1>
+    <p class="tarih">1 Kasım 2026</p>
+    <p class="aciklama">Bu akşam çektiğiniz fotoğraf ve videoları buradan bize gönderebilirsiniz. Hepsi orijinal kalitesinde bize ulaşır.</p>
+  </header>
+
+  <button class="sec" type="button" id="sec">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M8.5 6l1.4-2.2h4.2L15.5 6"/><circle cx="12" cy="13" r="3.6"/></svg>
+    Fotoğraf ve video seç
+  </button>
+  <input class="gizli" id="dosya" type="file" multiple accept="image/*,image/heic,image/heif,video/*" tabindex="-1" aria-hidden="true">
+  <p class="ipucu">Birden fazla dosya seçebilirsiniz. Gönderim bitene kadar bu sayfayı açık tutun.</p>
+
+  <div class="uyari" id="ayarsiz" hidden>Gönderim adresi henüz ayarlanmadı.</div>
+
+  <section class="tesekkur" id="tesekkur" hidden aria-live="polite">
+    <h2>Teşekkür ederiz!</h2>
+    <p>Anılarınız bize ulaştı. Dilerseniz daha fazlasını da gönderebilirsiniz.</p>
+  </section>
+  <div class="uyari" id="sorun" hidden>Bazı dosyalar gönderilemedi. İnternet bağlantınızı kontrol edip “Tekrar dene”ye dokunun.</div>
+
+  <section class="gonderim" id="gonderim" hidden>
+    <div class="ozet"><span id="sayac" aria-live="polite"></span><strong id="yuzde"></strong></div>
+    <div class="bar"><i id="genelBar"></i></div>
+    <ul id="liste"></ul>
+  </section>
+
+  <footer>Bu güzel günü bizimle paylaştığınız için teşekkürler</footer>
+</main>
+
+<template id="satir">
+  <li>
+    <span class="ikon"></span>
+    <span class="ad"></span>
+    <span class="sag"></span>
+    <span class="durum"></span>
+    <div class="bar"><i></i></div>
+  </li>
+</template>
+
+<script src="config.js"></script>
+<script>
+(() => {
+  const ENDPOINT = (window.APPS_SCRIPT_URL || '').trim();
+  const CHUNK = 16 * 256 * 1024;          // 4 Mo, multiple de 256 Ko exigé par Drive
+  const MAX_BYTES = 300 * 1024 * 1024;
+  const PARALLEL = 2;
+  const MAX_TRIES = 8;
+  const MEDIA_EXT = /\.(heic|heif|jpe?g|png|webp|gif|dng|mov|mp4|m4v|3gp|webm)$/i;
+
+  const ICON_FOTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 9"/></svg>';
+  const ICON_VIDEO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10.5l5-3v9l-5-3"/></svg>';
+  const ICON_TAMAM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Gönderildi"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  const $ = (id) => document.getElementById(id);
+  const input = $('dosya');
+  const items = [];
+  let active = 0;
+  let wakeLock = null;
+
+  if (!ENDPOINT) $('ayarsiz').hidden = false;
+  $('sec').addEventListener('click', () => input.click());
+  input.addEventListener('change', () => {
+    [...input.files].forEach(add);
+    input.value = '';
+    pump();
+  });
+  window.addEventListener('online', () => items.filter((it) => it.state === 'hata').forEach(retry));
+  window.addEventListener('beforeunload', (e) => { if (busy()) { e.preventDefault(); e.returnValue = ''; } });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && busy()) lockScreen(); });
+
+  function add(file) {
+    const el = $('satir').content.firstElementChild.cloneNode(true);
+    const isVideo = (file.type || '').startsWith('video/') || /\.(mov|mp4|m4v|3gp|webm)$/i.test(file.name);
+    el.querySelector('.ikon').innerHTML = isVideo ? ICON_VIDEO : ICON_FOTO;
+    el.querySelector('.ad').textContent = file.name || (isVideo ? 'Video' : 'Fotoğraf');
+    const it = { file, el, sent: 0, state: 'sirada', id: null };
+    items.push(it);
+    $('liste').appendChild(el);
+    $('gonderim').hidden = false;
+    $('tesekkur').hidden = true;
+
+    const isMedia = /^(image|video)\//.test(file.type) || MEDIA_EXT.test(file.name);
+    if (!isMedia) return set(it, 'red', 'Yalnızca fotoğraf ve video gönderilebilir');
+    if (file.size > MAX_BYTES) return set(it, 'red', '300 MB’tan büyük dosyalar gönderilemez');
+    if (!file.size) return set(it, 'red', 'Dosya boş görünüyor');
+    set(it, 'sirada', 'Sırada');
+  }
+
+  function pump() {
+    if (!ENDPOINT) return;
+    while (active < PARALLEL) {
+      const next = items.find((it) => it.state === 'sirada');
+      if (!next) break;
+      active++;
+      lockScreen();
+      upload(next).finally(() => { active--; pump(); refresh(); });
+    }
+    refresh();
+  }
+
+  async function upload(it) {
+    set(it, 'gidiyor', 'Gönderiliyor');
+    let fails = 0;
+    while (true) {
+      try {
+        if (!it.id) {
+          const r = await api({ action: 'init', name: it.file.name, mimeType: it.file.type, size: it.file.size });
+          it.id = r.id; it.sent = 0;
+        }
+        if (fails > 0) {
+          // après une coupure : on demande à Drive où reprendre
+          const s = await api({ action: 'status', id: it.id });
+          if (s.done) return finish(it);
+          it.sent = s.next;
+        }
+        while (it.sent < it.file.size) {
+          const blob = it.file.slice(it.sent, it.sent + CHUNK);
+          const r = await api({ action: 'chunk', id: it.id, start: it.sent, data: await toBase64(blob) });
+          if (r.done) return finish(it);
+          it.sent = r.next;
+          fails = 0;
+          set(it, 'gidiyor', 'Gönderiliyor');
+        }
+        return finish(it);
+      } catch (err) {
+        if (err.permanent) return set(it, 'red', 'Bu dosya gönderilemedi');
+        if (err.expired) it.id = null;
+        if (++fails >= MAX_TRIES) return set(it, 'hata', 'Gönderilemedi', true);
+        set(it, 'gidiyor', 'Bağlantı koptu, yeniden deneniyor');
+        await wait(Math.min(15000, 1000 * 2 ** (fails - 1)));
+      }
+    }
+  }
+
+  function finish(it) {
+    it.sent = it.file.size;
+    set(it, 'bitti', 'Gönderildi');
+  }
+
+  function retry(it) {
+    if (it.state !== 'hata') return;
+    set(it, 'sirada', 'Sırada');
+    pump();
+  }
+
+  async function api(payload) {
+    let res;
+    try {
+      // text/plain : requête "simple", pas de pré-vol CORS côté Apps Script
+      res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload), redirect: 'follow' });
+    } catch (e) { throw new Error('network'); }
+    if (!res.ok) throw new Error('http_' + res.status);
+    const data = await res.json();
+    if (!data.ok) {
+      const err = new Error(data.error);
+      err.permanent = data.error === 'bad_type' || data.error === 'bad_size';
+      err.expired = data.error === 'expired' || /^drive_(404|410)$/.test(data.error);
+      throw err;
+    }
+    return data;
+  }
+
+  function toBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const fr = new FileReader();
+      fr.onload = () => resolve(String(fr.result).split(',')[1] || '');
+      fr.onerror = () => reject(fr.error);
+      fr.readAsDataURL(blob);
+    });
+  }
+
+  function set(it, state, text, canRetry) {
+    it.state = state;
+    it.el.dataset.durum = state;
+    const pct = Math.floor((it.sent / (it.file.size || 1)) * 100);
+    it.el.querySelector('.durum').textContent = text === 'Gönderiliyor' ? `${text} %${pct}` : text;
+    it.el.querySelector('.bar i').style.width = pct + '%';
+    const right = it.el.querySelector('.sag');
+    if (state === 'bitti') right.innerHTML = ICON_TAMAM;
+    else if (canRetry) {
+      right.innerHTML = '<button class="tekrar" type="button">Tekrar dene</button>';
+      right.firstChild.addEventListener('click', () => retry(it));
+    } else right.textContent = formatSize(it.file.size);
+    refresh();
+  }
+
+  function refresh() {
+    const valid = items.filter((it) => it.state !== 'red');
+    const done = valid.filter((it) => it.state === 'bitti').length;
+    const total = valid.reduce((s, it) => s + it.file.size, 0);
+    const sent = valid.reduce((s, it) => s + it.sent, 0);
+    const pct = total ? Math.floor((sent / total) * 100) : 0;
+    $('sayac').textContent = `${valid.length} dosyadan ${done} tanesi gönderildi`;
+    $('yuzde').textContent = '%' + pct;
+    $('genelBar').style.width = pct + '%';
+    const failed = items.some((it) => it.state === 'hata');
+    $('sorun').hidden = !failed;
+    $('tesekkur').hidden = !(valid.length && done === valid.length);
+    if (!busy() && wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+  }
+
+  function busy() { return items.some((it) => it.state === 'sirada' || it.state === 'gidiyor'); }
+
+  async function lockScreen() {
+    // évite la mise en veille du téléphone pendant l'envoi
+    try { if ('wakeLock' in navigator && !wakeLock) wakeLock = await navigator.wakeLock.request('screen'); } catch (e) {}
+  }
+
+  function formatSize(b) {
+    return b >= 1048576 ? (b / 1048576).toLocaleString('tr-TR', { maximumFractionDigits: 1 }) + ' MB'
+                        : Math.max(1, Math.round(b / 1024)) + ' KB';
+  }
+
+  function wait(ms) { return new Promise((r) => setTimeout(r, ms)); }
+})();
+</script>
+</body>
+</html>
